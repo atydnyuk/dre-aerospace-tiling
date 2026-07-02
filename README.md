@@ -27,8 +27,8 @@ Standard AeroSpace bindings are unchanged:
 |-----|--------|
 | `alt-h/j/k/l` | Focus window left/down/up/right |
 | `alt-shift-h/j/k/l` | Move window left/down/up/right |
-| `alt-1…9, a…z` | Switch to workspace |
-| `alt-shift-1…9, a…z` | Move window to workspace |
+| `alt-1…9, most a…z` | Switch to workspace (`a`/`e`/`o`/`u` reserved for ErgoDox focus movement, unbound) |
+| `alt-shift-1…9, most a…z` | Move window to workspace |
 | `alt-tab` | Toggle last workspace |
 | `alt-shift-tab` | Move workspace to next monitor |
 | `alt-/` | Cycle tile layout (horizontal/vertical) |
@@ -62,11 +62,11 @@ vowels rather than position-matched to the physical h/j/k/l keys:
 | `alt-l` | `alt-u` | Focus right |
 | `alt-shift-h/j/k/l` | `alt-shift-a/o/e/u` | Move window left/down/up/right |
 
-Because `a`/`o`/`e`/`u` are also workspace letters (A/O/E/U) in `main`,
-those four workspaces have no direct `alt+letter` jump in `ergodox` mode —
-reach them via `alt-tab` or by moving windows into them. Everything else
-(digits, other workspace letters, layout/resize, `alt-0` tools mode,
-`alt-shift-;` service mode) works the same on both keyboards.
+Workspaces A/O/E/U don't exist in this config — those letters are reserved
+for focus movement instead, since workspace switching is mostly by number
+day-to-day. Everything else (digits, other workspace letters, layout/resize,
+`alt-0` tools mode, `alt-shift-;` service mode) works the same on both
+keyboards.
 
 ### Auto-switching
 
