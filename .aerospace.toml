@@ -45,9 +45,9 @@ automatically-unhide-macos-hidden-apps = false
 # even when they are invisible.
 # This config version is only available since 'config-version = 2'
 # Fallback value (if you omit the key): persistent-workspaces = []
-persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B",
-                         "C", "D", "E", "F", "G", "I", "M", "N", "O", "P", "Q",
-                         "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "B",
+                         "C", "D", "F", "G", "I", "M", "N", "P", "Q",
+                         "R", "S", "T", "V", "W", "X", "Y", "Z"]
 
 # A callback that runs every time binding mode changes
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -129,6 +129,9 @@ on-mode-changed = []
     alt-equal = 'resize smart +50'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
+    # a, e, o, u are dropped: reserved for ErgoDox vim-style focus movement
+    # in 'ergodox' mode below (h/j/k/l -> a/o/e/u), and unused day-to-day
+    # since workspace switching is mostly by number here anyway.
     alt-1 = 'workspace 1'
     alt-2 = 'workspace 2'
     alt-3 = 'workspace 3'
@@ -138,23 +141,19 @@ on-mode-changed = []
     alt-7 = 'workspace 7'
     alt-8 = 'workspace 8'
     alt-9 = 'workspace 9'
-    alt-a = 'workspace A' # In your config, you can drop workspace bindings that you don't need
     alt-b = 'workspace B'
     alt-c = 'workspace C'
     alt-d = 'workspace D'
-    alt-e = 'workspace E'
     alt-f = 'workspace F'
     alt-g = 'workspace G'
     alt-i = 'workspace I'
     alt-m = 'workspace M'
     alt-n = 'workspace N'
-    alt-o = 'workspace O'
     alt-p = 'workspace P'
     alt-q = 'workspace Q'
     alt-r = 'workspace R'
     alt-s = 'workspace S'
     alt-t = 'workspace T'
-    alt-u = 'workspace U'
     alt-v = 'workspace V'
     alt-w = 'workspace W'
     alt-x = 'workspace X'
@@ -171,23 +170,19 @@ on-mode-changed = []
     alt-shift-7 = 'move-node-to-workspace 7'
     alt-shift-8 = 'move-node-to-workspace 8'
     alt-shift-9 = 'move-node-to-workspace 9'
-    alt-shift-a = 'move-node-to-workspace A'
     alt-shift-b = 'move-node-to-workspace B'
     alt-shift-c = 'move-node-to-workspace C'
     alt-shift-d = 'move-node-to-workspace D'
-    alt-shift-e = 'move-node-to-workspace E'
     alt-shift-f = 'move-node-to-workspace F'
     alt-shift-g = 'move-node-to-workspace G'
     alt-shift-i = 'move-node-to-workspace I'
     alt-shift-m = 'move-node-to-workspace M'
     alt-shift-n = 'move-node-to-workspace N'
-    alt-shift-o = 'move-node-to-workspace O'
     alt-shift-p = 'move-node-to-workspace P'
     alt-shift-q = 'move-node-to-workspace Q'
     alt-shift-r = 'move-node-to-workspace R'
     alt-shift-s = 'move-node-to-workspace S'
     alt-shift-t = 'move-node-to-workspace T'
-    alt-shift-u = 'move-node-to-workspace U'
     alt-shift-v = 'move-node-to-workspace V'
     alt-shift-w = 'move-node-to-workspace W'
     alt-shift-x = 'move-node-to-workspace X'
@@ -202,6 +197,107 @@ on-mode-changed = []
     # See: https://nikitabobko.github.io/AeroSpace/commands#mode
     alt-shift-semicolon = 'mode service'
     alt-0 = 'mode tools'
+
+# 'ergodox' binding mode declaration — used when the ErgoDox EZ is docked.
+# The ErgoDox's Dvorak layer lives entirely in its firmware; macOS's own
+# input source stays on QWERTY (key-mapping.preset above is left at
+# 'qwerty' and is NOT switched here). Bindings below are written using the
+# character you intend to type on the ErgoDox's Dvorak layer; the firmware
+# sends whatever raw keycode QWERTY needs to produce that character, so
+# AeroSpace (reading raw keycodes under the 'qwerty' preset) sees it correctly.
+#
+# vim-style focus/move keys are hand-swapped to Dvorak's left-hand home-row
+# vowels (h j k l -> a o e u) rather than position-matched to the physical
+# h/j/k/l keys. Workspaces A/O/E/U don't exist in this config (see
+# persistent-workspaces above) so there's no collision with those letters.
+# Switched into automatically by scripts/aerospace-kb-watch.sh based on
+# ErgoDox USB connect/disconnect.
+[mode.ergodox.binding]
+    alt-slash = 'layout tiles horizontal vertical'
+    alt-comma = 'layout accordion horizontal vertical'
+
+    # See: https://nikitabobko.github.io/AeroSpace/commands#focus
+    alt-a = 'focus left'
+    alt-o = 'focus down'
+    alt-e = 'focus up'
+    alt-u = 'focus right'
+
+    # See: https://nikitabobko.github.io/AeroSpace/commands#move
+    alt-shift-a = 'move left'
+    alt-shift-o = 'move down'
+    alt-shift-e = 'move up'
+    alt-shift-u = 'move right'
+
+    # See: https://nikitabobko.github.io/AeroSpace/commands#resize
+    alt-minus = 'resize smart -50'
+    alt-equal = 'resize smart +50'
+
+    # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
+    alt-1 = 'workspace 1'
+    alt-2 = 'workspace 2'
+    alt-3 = 'workspace 3'
+    alt-4 = 'workspace 4'
+    alt-5 = 'workspace 5'
+    alt-6 = 'workspace 6'
+    alt-7 = 'workspace 7'
+    alt-8 = 'workspace 8'
+    alt-9 = 'workspace 9'
+    alt-b = 'workspace B'
+    alt-c = 'workspace C'
+    alt-d = 'workspace D'
+    alt-f = 'workspace F'
+    alt-g = 'workspace G'
+    alt-i = 'workspace I'
+    alt-m = 'workspace M'
+    alt-n = 'workspace N'
+    alt-p = 'workspace P'
+    alt-q = 'workspace Q'
+    alt-r = 'workspace R'
+    alt-s = 'workspace S'
+    alt-t = 'workspace T'
+    alt-v = 'workspace V'
+    alt-w = 'workspace W'
+    alt-x = 'workspace X'
+    alt-y = 'workspace Y'
+    alt-z = 'workspace Z'
+
+    # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
+    alt-shift-1 = 'move-node-to-workspace 1'
+    alt-shift-2 = 'move-node-to-workspace 2'
+    alt-shift-3 = 'move-node-to-workspace 3'
+    alt-shift-4 = 'move-node-to-workspace 4'
+    alt-shift-5 = 'move-node-to-workspace 5'
+    alt-shift-6 = 'move-node-to-workspace 6'
+    alt-shift-7 = 'move-node-to-workspace 7'
+    alt-shift-8 = 'move-node-to-workspace 8'
+    alt-shift-9 = 'move-node-to-workspace 9'
+    alt-shift-b = 'move-node-to-workspace B'
+    alt-shift-c = 'move-node-to-workspace C'
+    alt-shift-d = 'move-node-to-workspace D'
+    alt-shift-f = 'move-node-to-workspace F'
+    alt-shift-g = 'move-node-to-workspace G'
+    alt-shift-i = 'move-node-to-workspace I'
+    alt-shift-m = 'move-node-to-workspace M'
+    alt-shift-n = 'move-node-to-workspace N'
+    alt-shift-p = 'move-node-to-workspace P'
+    alt-shift-q = 'move-node-to-workspace Q'
+    alt-shift-r = 'move-node-to-workspace R'
+    alt-shift-s = 'move-node-to-workspace S'
+    alt-shift-t = 'move-node-to-workspace T'
+    alt-shift-v = 'move-node-to-workspace V'
+    alt-shift-w = 'move-node-to-workspace W'
+    alt-shift-x = 'move-node-to-workspace X'
+    alt-shift-y = 'move-node-to-workspace Y'
+    alt-shift-z = 'move-node-to-workspace Z'
+
+    # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
+    alt-tab = 'workspace-back-and-forth'
+    # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
+    alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
+    # See: https://nikitabobko.github.io/AeroSpace/commands#mode
+    alt-shift-semicolon = 'mode ergodox-service'
+    alt-0 = 'mode ergodox-tools'
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -219,6 +315,19 @@ on-mode-changed = []
     alt-shift-k = ['join-with up', 'mode main']
     alt-shift-l = ['join-with right', 'mode main']
 
+# 'ergodox-service' binding mode declaration — Dvorak equivalent of 'service',
+# entered from 'ergodox' instead of 'main' so it returns to the Dvorak mode.
+[mode.ergodox-service.binding]
+    esc = ['reload-config', 'mode ergodox']
+    r = ['flatten-workspace-tree', 'mode ergodox'] # reset layout
+    f = ['layout floating tiling', 'mode ergodox'] # Toggle between floating and tiling layout
+    backspace = ['close-all-windows-but-current', 'mode ergodox']
+
+    alt-shift-a = ['join-with left', 'mode ergodox']
+    alt-shift-o = ['join-with down', 'mode ergodox']
+    alt-shift-e = ['join-with up', 'mode ergodox']
+    alt-shift-u = ['join-with right', 'mode ergodox']
+
 # 'tools' binding mode — window picker and layout presets
 # Enter with alt-0, exit with esc
 [mode.tools.binding]
@@ -227,3 +336,10 @@ on-mode-changed = []
     p = ['exec-and-forget ~/.config/aerospace/scripts/pull-window.sh', 'mode main']
     # Apply 3-window layout: left 40% (2 stacked), right 60%
     3 = ['exec-and-forget ~/.config/aerospace/scripts/layout-three.sh', 'mode main']
+
+# 'ergodox-tools' binding mode declaration — Dvorak equivalent of 'tools',
+# entered from 'ergodox' instead of 'main' so it returns to the Dvorak mode.
+[mode.ergodox-tools.binding]
+    esc = 'mode ergodox'
+    p = ['exec-and-forget ~/.config/aerospace/scripts/pull-window.sh', 'mode ergodox']
+    3 = ['exec-and-forget ~/.config/aerospace/scripts/layout-three.sh', 'mode ergodox']
