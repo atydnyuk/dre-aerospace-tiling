@@ -42,6 +42,49 @@ Standard AeroSpace bindings are unchanged:
 | `3` | Apply 3-window layout |
 | `p` | Open window picker |
 
+## ErgoDox EZ (Dvorak) mode
+
+The ErgoDox EZ's Dvorak layer lives entirely in its firmware — macOS's own
+input source stays on QWERTY, and `key-mapping.preset` in
+[.aerospace.toml](.aerospace.toml) is left at `'qwerty'` globally. A second
+top-level binding mode, `ergodox`, holds Dvorak-typed equivalents of the
+`main` bindings, and `scripts/aerospace-kb-watch.sh` switches between `main`
+and `ergodox` automatically based on whether the ErgoDox is plugged in.
+
+vim-style focus/move keys are hand-swapped to Dvorak's left-hand home-row
+vowels rather than position-matched to the physical h/j/k/l keys:
+
+| QWERTY (`main`) | Dvorak (`ergodox`) | Action |
+|---|---|---|
+| `alt-h` | `alt-a` | Focus left |
+| `alt-j` | `alt-o` | Focus down |
+| `alt-k` | `alt-e` | Focus up |
+| `alt-l` | `alt-u` | Focus right |
+| `alt-shift-h/j/k/l` | `alt-shift-a/o/e/u` | Move window left/down/up/right |
+
+Because `a`/`o`/`e`/`u` are also workspace letters (A/O/E/U) in `main`,
+those four workspaces have no direct `alt+letter` jump in `ergodox` mode —
+reach them via `alt-tab` or by moving windows into them. Everything else
+(digits, other workspace letters, layout/resize, `alt-0` tools mode,
+`alt-shift-;` service mode) works the same on both keyboards.
+
+### Auto-switching
+
+`install.sh` installs a LaunchAgent
+(`~/Library/LaunchAgents/com.dre.aerospace-kb-watch.plist`) that polls every
+5 seconds for the ErgoDox on the USB bus (`ioreg`, matched by name and by
+ZSA's vendor ID `0x3297`) and runs `aerospace mode ergodox` / `aerospace
+mode main` on a state change, debounced via `/tmp/aerospace-kb-mode`. Logs
+go to `/tmp/aerospace-kb-watch.log`.
+
+To check on it or manage it manually:
+
+```bash
+launchctl list | grep aerospace-kb-watch
+cat /tmp/aerospace-kb-mode          # last mode the watcher set
+launchctl unload ~/Library/LaunchAgents/com.dre.aerospace-kb-watch.plist
+```
+
 ## Features
 
 ### 3-window layout (`alt-0 → 3`)
